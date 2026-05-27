@@ -389,10 +389,11 @@ impl ServiceDaemon {
     fn run(mut zc: Zeroconf, receiver: Receiver<Command>) -> Option<Command> {
         // Add the daemon's signal socket to the poller.
         let signal_event_key = usize::MAX - 1; // avoid to overlap with zc.poll_ids
-        if let Err(e) = zc
-            .poller
-            .add(&zc.signal_sock, polling::Event::readable(signal_event_key))
-        {
+        // Safety: signal_sock lives as long as the poller (both fields of Zeroconf).
+        if let Err(e) = unsafe {
+            zc.poller
+                .add(&zc.signal_sock, polling::Event::readable(signal_event_key))
+        } {
             error!("failed to add signal socket to the poller: {}", e);
             return None;
         }
@@ -400,7 +401,9 @@ impl ServiceDaemon {
         // Add mDNS sockets to the poller.
         for (ip, if_sock) in zc.intf_socks.iter() {
             let key = Zeroconf::add_poll_impl(&mut zc.poll_ids, &mut zc.poll_id_count, *ip);
-            if let Err(e) = zc.poller.add(&if_sock.sock, polling::Event::readable(key)) {
+            // Safety: if_sock.sock lives as long as the poller (both owned by Zeroconf).
+            if let Err(e) = unsafe { zc.poller.add(&if_sock.sock, polling::Event::readable(key)) }
+            {
                 error!("add socket of {:?} to poller: {}", ip, e);
                 return None;
             }
@@ -413,7 +416,7 @@ impl ServiceDaemon {
 
         // Start the run loop.
 
-        let mut events = Vec::new();
+        let mut events = polling::Events::new();
         loop {
             let now = current_time_millis();
 
@@ -1140,7 +1143,8 @@ impl Zeroconf {
 
         // Add the new interface into the poller.
         let key = self.add_poll(new_ip);
-        if let Err(e) = self.poller.add(&sock, polling::Event::readable(key)) {
+        // Safety: sock will be stored in intf_socks, outliving the poller in Zeroconf.
+        if let Err(e) = unsafe { self.poller.add(&sock, polling::Event::readable(key)) } {
             error!("check_ip_changes: poller add ip {}: {}", new_ip, e);
             return;
         }

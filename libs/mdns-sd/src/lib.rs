@@ -107,7 +107,9 @@
 //! - Only support multicast, not unicast send/recv.
 //! - Only support 32-bit or bigger platforms, not 16-bit platforms.
 
-#![forbid(unsafe_code)]
+// polling 3.x requires `unsafe` for Poller::add — the source fd must outlive its
+// registration with the poller.  All unsafe blocks in service_daemon are sound:
+// every socket and the poller are co-owned by Zeroconf with the same lifetime.
 #![allow(clippy::single_component_path_imports)]
 
 // log for logging (optional).

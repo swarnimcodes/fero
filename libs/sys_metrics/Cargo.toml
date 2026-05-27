@@ -26,7 +26,7 @@ io-kit-sys = "0.3"
 mach = "0.3"
 
 [dev-dependencies]
-criterion = "0.4"
+criterion = "0.5"
 
 [profile.release]
 lto = true
