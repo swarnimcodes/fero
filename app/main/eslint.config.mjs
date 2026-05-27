@@ -19,17 +19,17 @@ export default [
 	{ languageOptions: { globals: globals.browser } },
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
+	// react-hooks v7: configs.recommended is a full flat-config object
+	pluginReactHooks.configs.recommended,
 	{
 		plugins: {
 			react: pluginReact,
-			'react-hooks': pluginReactHooks,
 		},
 		settings: {
 			react: { version: 'detect' },
 		},
 		rules: {
 			...pluginReact.configs.recommended.rules,
-			...pluginReactHooks.configs.recommended.rules,
 			// React 17+ JSX transform — no need to import React
 			'react/react-in-jsx-scope': 'off',
 			'react/prop-types': 'off',

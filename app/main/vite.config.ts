@@ -22,7 +22,7 @@ export default defineConfig({
 		outDir: './dist',
 		// https://tauri.app/v1/references/webview-versions
 		target: process.env.TAURI_PLATFORM == 'windows' ? 'chrome105' : 'safari15',
-		minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
+		minify: !process.env.TAURI_DEBUG,
 		sourcemap: !!process.env.TAURI_DEBUG,
 		emptyOutDir: true,
 	},
