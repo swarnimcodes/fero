@@ -2,7 +2,7 @@
 
 Fero is a desktop file-sharing app for Linux and macOS that interoperates with Android's Nearby Share / Quick Share protocol.
 
-Fero started as a fork of [RQuickShare](https://github.com/Martichou/rquickshare) by Martin Andre. The original project provided the core Rust and Tauri implementation this project is based on.
+Fero is based on [RQuickShare](https://github.com/Martichou/rquickshare) by Martin Andre. This effort is intended to continue development forward from where the original author left off, while preserving credit for the work that made Fero possible.
 
 ![demo image](.github/demo.png)
 
@@ -130,7 +130,7 @@ env WEBKIT_DISABLE_COMPOSITING_MODE=1 fero
 
 Fero is licensed under the GNU General Public License v3.0 or later. See [LICENSE](LICENSE).
 
-This repository is a modified version of RQuickShare. The original work is copyright Martin Andre and contributors; Fero modifications are copyright Swarnimcodes and contributors.
+This repository is a modified version of [RQuickShare](https://github.com/Martichou/rquickshare). Fero continues development from that codebase; the original work is copyright Martin Andre and contributors, and Fero modifications are copyright Swarnimcodes and contributors.
 
 ## Credits
 
@@ -143,3 +143,9 @@ Fero builds on:
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss the proposed change.
+
+## Relationship to RQuickShare
+
+Fero is not the original RQuickShare project. It is a continuation fork based on [RQuickShare](https://github.com/Martichou/rquickshare) by Martin Andre, created to carry the project forward from where upstream development stopped.
+
+Credit for the original implementation belongs to Martin Andre and the RQuickShare contributors. Fero keeps that attribution visible while maintaining a separate project name, repository, and development direction for future work.
