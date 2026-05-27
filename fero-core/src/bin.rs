@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate log;
 
-use fero_lib::RQS;
+use fero_core::RQS;
 use tokio::sync::broadcast;
 
 #[tokio::main]

@@ -1,12 +1,12 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import pluginVue from "eslint-plugin-vue";
+import globals from 'globals'
+import pluginJs from '@eslint/js'
+import tseslint from 'typescript-eslint'
+import pluginReact from 'eslint-plugin-react'
+import pluginReactHooks from 'eslint-plugin-react-hooks'
 
 export default [
 	{
-		//---- GLOBAL IGNORES
-		// note folders can only be ignored at the global level, per-cfg you must do: '**/dist/**/*'
+		// Global ignores — folders must be ignored at the top level
 		ignores: [
 			'**/dist/',
 			'**/vendor/',
@@ -14,52 +14,33 @@ export default [
 			'**/target/',
 		],
 	},
-	{files: ["**/*.{js,mjs,cjs,ts,vue}"]},
-	{files: ["**/*.js"], languageOptions: {sourceType: "commonjs"}},
-	{languageOptions: { globals: globals.browser }},
+	{ files: ['**/*.{js,mjs,cjs,ts,tsx}'] },
+	{ files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
+	{ languageOptions: { globals: globals.browser } },
 	pluginJs.configs.recommended,
 	...tseslint.configs.recommended,
-	...pluginVue.configs["flat/essential"],
-	...pluginVue.configs["flat/strongly-recommended"],
-	{files: ["**/*.vue"], languageOptions: {parserOptions: {parser: '@typescript-eslint/parser'}}},
 	{
+		plugins: {
+			react: pluginReact,
+			'react-hooks': pluginReactHooks,
+		},
+		settings: {
+			react: { version: 'detect' },
+		},
 		rules: {
-			'vue/no-multiple-template-root': "off",
+			...pluginReact.configs.recommended.rules,
+			...pluginReactHooks.configs.recommended.rules,
+			// React 17+ JSX transform — no need to import React
+			'react/react-in-jsx-scope': 'off',
+			'react/prop-types': 'off',
+			// General
 			// eslint-disable-next-line no-undef
 			'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
 			// eslint-disable-next-line no-undef
 			'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-			'vue/max-attributes-per-line': ['error', {
-				singleline: {
-					max: 4
-				},
-				multiline: {
-					max: 4
-				}
-			}],
-			'vue/html-closing-bracket-newline': ['error', {
-				singleline: 'never',
-				multiline: 'never'
-			}],
 			'new-cap': 'off',
 			'camelcase': 'off',
-			'vue/no-multi-spaces': 'off',
-			'vue/multi-word-component-names': 'off',
-			'vue/html-indent': ['error', 'tab', {
-				attribute: 1,
-				baseIndent: 1,
-				closeBracket: 0,
-				alignAttributesVertically: true,
-				ignores: []
-			}],
-			'vue/script-indent': ['error', 'tab', {
-				baseIndent: 0,
-				switchCase: 0,
-				ignores: []
-			}],
-			'no-tabs': 0,
-			'indent': [2, 'tab'],
-			'@typescript-eslint/no-explicit-any': 'off'
-		}
-	}
-];
+			'@typescript-eslint/no-explicit-any': 'off',
+		},
+	},
+]

@@ -8,8 +8,8 @@ extern crate log;
 
 use std::sync::{Arc, Mutex};
 
-use fero_lib::channel::{ChannelDirection, ChannelMessage};
-use fero_lib::{EndpointInfo, SendInfo, State, Visibility, RQS};
+use fero_core::channel::{ChannelDirection, ChannelMessage};
+use fero_core::{EndpointInfo, SendInfo, State, Visibility, RQS};
 use store::get_startminimized;
 #[cfg(target_os = "macos")]
 use tauri::image::Image;

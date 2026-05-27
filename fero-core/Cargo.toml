@@ -1,5 +1,5 @@
 [package]
-name = "fero_lib"
+name = "fero_core"
 version = "0.11.5"
 edition = "2021"
 authors = ["swarnimcodes"]

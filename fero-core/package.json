@@ -1,5 +1,5 @@
 {
-	"name": "@swarnimcodes/fero-lib",
+	"name": "@swarnimcodes/fero-core",
 	"version": "1.0.9",
 	"description": "Shared models for the Fero desktop application",
 	"license": "GPL-3.0-or-later",
