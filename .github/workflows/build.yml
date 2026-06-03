@@ -2,7 +2,7 @@ name: Build-(Core & Tauri)
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
 
 # cancel ongoing jobs:
@@ -22,11 +22,11 @@ jobs:
           - os: ubuntu-latest
           - os: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
-          cache-directories: "${{ github.workspace }}/core_lib/target"
+          cache-directories: "${{ github.workspace }}/fero-core/target"
       - uses: arduino/setup-protoc@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libdbus-1-dev
       - run: |
-          cd ./core_lib
+          cd ./fero-core
           cargo test
           cargo build
 
@@ -56,18 +56,14 @@ jobs:
             name: main
             target_path: app/main
             cache_directory: app/main/src-tauri/target
-          - os: macos-13
-            name: main
-            target_path: app/main
-            cache_directory: app/main/src-tauri/target
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
         with:
           version: 11.3.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
@@ -101,7 +97,7 @@ jobs:
           ./rename_build.sh ${{ github.workspace }}/${{ matrix.target_path }}/src-tauri/target/debug/bundle/ ${{ matrix.name }}
 
       - name: Upload result
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: artifact-debug-fero-${{ matrix.os }}
           path: |

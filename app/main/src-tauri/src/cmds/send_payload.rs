@@ -1,4 +1,4 @@
-use fero_lib::SendInfo;
+use fero_core::SendInfo;
 
 use crate::AppState;
 

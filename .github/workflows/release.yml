@@ -26,18 +26,14 @@ jobs:
             name: main
             target_path: app/main
             cache_directory: app/main/src-tauri/target
-          - os: macos-13
-            name: main
-            target_path: app/main
-            cache_directory: app/main/src-tauri/target
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v6
         with:
           version: 11.3.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
         with:
@@ -80,7 +76,7 @@ jobs:
 
       - name: Upload artifacts
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: artifact-debug-fero-${{ matrix.os }}
           path: |

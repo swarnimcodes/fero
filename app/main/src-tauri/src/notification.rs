@@ -1,7 +1,7 @@
 #[cfg(target_os = "linux")]
 use notify_rust::Notification;
 #[cfg(target_os = "linux")]
-use fero_lib::{
+use fero_core::{
     channel::{ChannelAction, ChannelDirection, ChannelMessage},
     Visibility,
 };

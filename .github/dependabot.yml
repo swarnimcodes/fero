@@ -18,11 +18,11 @@ updates:
 
   # rust packages
   - package-ecosystem: 'cargo'
-    directory: '/core_lib'
+    directory: '/fero-core'
     schedule:
       interval: 'monthly'
     commit-message:
-      prefix: 'deps(core_lib): '
+      prefix: 'deps(fero-core): '
     groups:
       dependencies:
         patterns:

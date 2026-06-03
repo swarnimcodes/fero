@@ -1,4 +1,4 @@
-use fero_lib::channel::ChannelMessage;
+use fero_core::channel::ChannelMessage;
 
 use crate::AppState;
 

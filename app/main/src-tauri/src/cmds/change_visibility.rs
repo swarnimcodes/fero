@@ -1,4 +1,4 @@
-use fero_lib::Visibility;
+use fero_core::Visibility;
 
 use crate::AppState;
 

@@ -2,7 +2,7 @@ name: Code quality - linting
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
 
 # cancel ongoing jobs:
@@ -19,11 +19,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - directory: ./core_lib
+          - directory: ./fero-core
           - directory: ./app/main/src-tauri
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@nightly
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt
       - run: |
@@ -37,16 +37,16 @@ jobs:
         include:
           - directory: ./app/main
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: arduino/setup-protoc@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 11.3.0
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 24
       - run: |
           cd ${{ matrix.directory }}
           pnpm install
@@ -56,7 +56,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - directory: core_lib
+          - directory: fero-core
             clippy_args: "--all-features --all"
             os: ubuntu-latest
           - directory: app/main/src-tauri
@@ -64,8 +64,8 @@ jobs:
             os: ubuntu-24.04
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@nightly
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
         with:
           components: clippy
       - uses: Swatinem/rust-cache@v2

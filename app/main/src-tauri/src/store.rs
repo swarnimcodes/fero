@@ -1,6 +1,6 @@
 use std::{path::PathBuf, sync::Arc, time::Duration};
 
-use fero_lib::Visibility;
+use fero_core::Visibility;
 use tauri::{AppHandle, Emitter, Wry};
 use tauri_plugin_store::{Store, StoreExt};
 

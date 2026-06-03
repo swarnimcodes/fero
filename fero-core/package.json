@@ -1,0 +1,35 @@
+{
+	"name": "@swarnimcodes/fero-core",
+	"version": "1.0.9",
+	"description": "Shared models for the Fero desktop application",
+	"license": "GPL-3.0-or-later",
+	"main": "dist/index.js",
+	"module": "esm/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"bindings",
+		"esm"
+	],
+	"scripts": {
+		"build:cjs": "pnpm exec tsc --module commonjs --outDir dist",
+		"build:esm": "pnpm exec tsc --target es2018 --outDir esm",
+		"build": "pnpm run build:esm && pnpm run build:cjs"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/swarnimcodes/fero.git"
+	},
+	"author": "swarnimcodes",
+	"contributors": [
+		"Martin Andre"
+	],
+	"bugs": {
+		"url": "https://github.com/swarnimcodes/fero/issues"
+	},
+	"homepage": "https://github.com/swarnimcodes/fero#readme",
+	"devDependencies": {
+		"typescript": "^6.0.3"
+	},
+	"packageManager": "pnpm@11.3.0"
+}
